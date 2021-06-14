@@ -66,4 +66,10 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.rvTeam.adapter = null
+        _binding = null
+    }
 }

@@ -9,6 +9,8 @@ interface ITeamRepository {
 
     fun getAllTeam(): Flow<Resource<List<Team>>>
 
+    fun getSearchTeam(search: String): Flow<List<Team>>
+
     fun getFavoriteTeam(): Flow<List<Team>>
 
     fun setFavoriteTeam(team: Team, state: Boolean)

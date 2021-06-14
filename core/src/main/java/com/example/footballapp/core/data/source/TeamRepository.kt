@@ -49,9 +49,15 @@ class TeamRepository(
             }
         }.asFlow()
 
+    override fun getSearchTeam(search: String): Flow<List<Team>> {
+        return localDataSource.getSearchTeam(search).map { DataMapper.mapEntitiesToDomain(it) }
+    }
+
     override fun getFavoriteTeam(): Flow<List<Team>> {
         return localDataSource.getFavoriteTeam().map { DataMapper.mapEntitiesToDomain(it) }
     }
+
+
 
     override fun setFavoriteTeam(team: Team, state: Boolean) {
         val teamEntity = DataMapper.mapDomainToEntity(team)

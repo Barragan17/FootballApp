@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.Flow
 class TeamInteractor(private val teamRespository: ITeamRepository): TeamUseCase {
     override fun getAllTeams() = teamRespository.getAllTeam()
 
+    override fun getSearchTeam(search: String): Flow<List<Team>> = teamRespository.getSearchTeam(search)
+
     override fun getFavoriteTeam() = teamRespository.getFavoriteTeam()
 
     override fun setFavoriteTeam(team: Team, state: Boolean) = teamRespository.setFavoriteTeam(team, state)

@@ -19,6 +19,8 @@ class LocalDataSource(private val teamDao: TeamDao) {
 
     fun getFavoriteTeam(): Flow<List<TeamEntity>> = teamDao.getAllFavoriteTeam()
 
+    fun getSearchTeam(search: String): Flow<List<TeamEntity>> = teamDao.getSearchTeam(search)
+
     suspend fun insertTeam(teamList: List<TeamEntity>) = teamDao.insertTeam(teamList)
 
     fun setFavoriteTeam(team: TeamEntity, newState: Boolean) {
