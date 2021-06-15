@@ -14,7 +14,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Toolbar">
-        <item name="android:textColorSecondary">@color/white</item>
-    </style>
+<!--    <style name="Toolbar">-->
+<!--        <item name="android:textColorSecondary">@color/white</item>-->
+<!--    </style>-->
 </resources>

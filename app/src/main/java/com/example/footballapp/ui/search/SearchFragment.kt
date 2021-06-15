@@ -1,5 +1,6 @@
 package com.example.footballapp.ui.search
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.footballapp.core.domain.model.Team
 import com.example.footballapp.core.ui.TeamAdapter
 import com.example.footballapp.databinding.FragmentSearchBinding
+import com.example.footballapp.detail.DetailActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.map
@@ -35,15 +37,15 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
-
     private fun searchClick(){
         binding.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 val searchAdapter = TeamAdapter()
+                searchAdapter.onItemClick = { selectedData ->
+                    val intent = Intent(activity, DetailActivity::class.java)
+                    intent.putExtra(DetailActivity.EXTRA_TEAM, selectedData)
+                    startActivity(intent)
+                }
                 searchViewModel.search(query!!).observe(viewLifecycleOwner, { search ->
                     Log.d("SEARCH", search.toString())
                     if(search != null){
@@ -71,6 +73,8 @@ class SearchFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         binding.searchView.setOnQueryTextListener(null)
+        binding.searchView.setOnSearchClickListener(null)
+        binding.searchView.setOnCloseListener(null)
         binding.rvTeam.adapter = null
         _binding = null
     }
